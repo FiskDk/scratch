@@ -10,7 +10,6 @@ To install it copy and paste the following code into a powershell terminal
 ```powershell
 $nodeV = (node -v) | Out-String
 if ($nodeV.StartsWith("v")) { echo NodeJS Version : $nodeV } else {exit}
-Stop-process -Name "Scratch Desktop"
 cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\resources"
 if (Test-Path "scratch") { remove-item "scratch" }
 npx asar extract app.asar scratch
