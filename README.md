@@ -2,6 +2,10 @@
 
 Customized Scratch Desktop client
 
+![](https://github.com/FiskDk/scratch/master/sc1.png)
+
+![](https://github.com/FiskDk/scratch/master/sc2.png)
+
 You need NodeJS for this to work, and also that Scratch is installed for the local user only.
 
 To install it copy and paste the following code into a powershell terminal
