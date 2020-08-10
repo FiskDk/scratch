@@ -4,7 +4,7 @@ Customized Scratch Desktop client
 
 ![](https://github.com/FiskDk/scratch/blob/master/sc1.png)
 
-![](https://github.com/FiskDk/scratch/blob/master/s2.png)
+![](https://github.com/FiskDk/scratch/blob/master/sc2.png)
 
 You need NodeJS for this to work, and also that Scratch is installed for the local user only.
 
