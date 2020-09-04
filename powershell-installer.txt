@@ -14,6 +14,10 @@ cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\resources"
 npm install discord-rpc --save
 npx asar pack scratch app.asar
 Remove-Item -Recurse -Force "scratch"
+cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\Resources"
+New-Item -Path "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\Resources" -Name "plugins" -ItemType "directory"
+cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\Resources\plugins"
+Invoke-WebRequest https://raw.githubusercontent.com/FiskDk/scratch/master/plugins/loader.js -OutFile loader.js
 cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop"
 start "Scratch Desktop.exe"
 echo Scratch++ has been installed!
