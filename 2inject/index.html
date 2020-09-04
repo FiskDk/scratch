@@ -19,10 +19,46 @@
         }
     </style>
     <script>
+      //Define the spp var
+      global.spp = []
+      global.spp.version = "1.0"
+      global.spp.log = function(msg) {
+  
+  console.log('%c[Scratch++] %c' + msg, 'color:lime;border:1px solid black', 'color:white;border:1px solid black');
+
+}
+      global.spp.loadExtScript = function(url) {
+      spp.log("Loading external script...")
+        fetch(url)
+  .then(response => response.text())
+  .then(data => {
+let s = document.createElement('script');
+s.innerHTML = data
+s.onload = function() {
+    this.remove();
+};
+(document.head || document.documentElement).appendChild(s);
+  });
+      }
+      global.spp.loadExtStyle = function(url) {
+      spp.log("Loading external style...")
+        fetch(url)
+  .then(response => response.text())
+  .then(data => {
+let s = document.createElement('style');
+s.innerHTML = data
+s.onload = function() {
+    this.remove();
+};
+(document.head || document.documentElement).appendChild(s);
+  });
+      }
         global.__toggleDevTools = function(){
                         const currentWebContents = require('electron').remote.getCurrentWebContents();
                 currentWebContents.openDevTools();
 }
+
+
         //Important functions i guess?
         const waitUntilElementExists = (selector, callback) => {
     const el = document.querySelector(selector);
@@ -34,21 +70,71 @@
     setTimeout(() => waitUntilElementExists(selector, callback), 500);
     }
  
+//Define Scratch++ functions
+
+
+
    //Inject Scratch++ code
 waitUntilElementExists(".menu-bar_scratch-logo_7D20g", function main(){
     //Scratch has loaded, now inject the custom logo, and the custom darkmode theme
     const fs = require("fs")
     const os = require("os")
 document.getElementsByClassName("menu-bar_scratch-logo_7D20g menu-bar_clickable_26k4z")[0].parentElement.innerHTML = '<a style="text-align: center; color:white" href="javascript:__toggleDevTools()">Scratch++</a>'
-console.log("Scratch++ has loaded");
-console.log("[Scratch++] Loading plugin loader...")
+spp.log("Loading...")
+spp.log("Enabling Discord RPC...")
+
+//Discord RPC code
+
+'use strict';
+
+/* eslint-disable no-console */
+const path = require('path');
+const url = require('url');
+const DiscordRPC = require('discord-rpc');
+
+// Set this to your Client ID.
+const clientId = '742480129585840200';
+
+// Only needed if you want to use spectate, join, or ask to join
+DiscordRPC.register(clientId);
+
+const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+const startTimestamp = new Date();
+
+async function setActivity() {
+  if (!rpc) {
+    return;
+  }
+
+  rpc.setActivity({
+    details: `Working on a Scratch project`,
+    state: 'on Scratch++ for Windows',
+    startTimestamp,
+    largeImageKey: 'scratch',
+    largeImageText: 'Scratch++',
+    instance: false,
+  });
+}
+
+rpc.on('ready', () => {
+  setActivity();
+
+  // activity can only be set every 15 seconds
+  setInterval(() => {
+    setActivity();
+  }, 15e3);
+});
+
+rpc.login({ clientId }).catch(console.error);
+
+spp.log("Loading plugin loader...")
 fs.readFile("C:/Users/" + os.userInfo().username + "/AppData/Local/Programs/Scratch Desktop/resources/plugins/loader.js", 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
   eval(data)
 });
-console.log("[Scratch++] PluginLoader finished all tasks")
+spp.log("PluginLoader finished all tasks")
 })
 
 </script>

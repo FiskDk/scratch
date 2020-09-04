@@ -1,10 +1,12 @@
 ### Scratch++ (Windows only atm)
-
-Customized Scratch Desktop client
+##### Scratch++ is a Scratch desktop client for Windows with support for Discord RPC, Custom plugins, themes, and more
 
 ![](https://github.com/FiskDk/scratch/blob/master/sc1.png)
 
 ![](https://github.com/FiskDk/scratch/blob/master/sc2.png)
+
+![](https://github.com/FiskDk/scratch/blob/master/sc3.png)
+
 
 You need NodeJS for this to work, and also that Scratch is installed for the local user only.
 
@@ -25,8 +27,13 @@ Invoke-WebRequest https://raw.githubusercontent.com/FiskDk/scratch/master/2injec
 if (Test-Path "scratch.png") { remove-item "scratch.png" }
 Invoke-WebRequest https://raw.githubusercontent.com/FiskDk/scratch/master/2inject/scratch.png -OutFile scratch.png
 cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\resources"
+npm install discord-rpc --save
 npx asar pack scratch app.asar
 Remove-Item -Recurse -Force "scratch"
+cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\Resources"
+New-Item -Path "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\Resources" -Name "plugins" -ItemType "directory"
+cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop\Resources\plugins"
+Invoke-WebRequest https://raw.githubusercontent.com/FiskDk/scratch/master/plugins/loader.js -OutFile loader.js
 cd "C:\Users\$env:UserName\AppData\Local\Programs\Scratch Desktop"
 start "Scratch Desktop.exe"
 echo Scratch++ has been installed!
